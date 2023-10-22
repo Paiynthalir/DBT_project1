@@ -1,7 +1,9 @@
 {{
-    config(
-        unique_key='LISTING_ID'
-    )
+        config(
+          strategy='timestamp',
+          unique_key='listing_id',
+          updated_at='inserted_datetime'
+        )
 }}
 
 with

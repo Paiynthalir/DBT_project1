@@ -9,6 +9,8 @@
         )
     }}
 
-select listing_id, SCRAPED_DATE, LISTING_NEIGHBOURHOOD, PROPERTY_TYPE, PRICE, inserted_datetime  from {{ source('raw', 'listings') }}
+select 
+listing_id, SCRAPED_DATE, LISTING_NEIGHBOURHOOD, PROPERTY_TYPE, PRICE, inserted_datetime  
+from {{ source('raw', 'listings') }}
 
 {% endsnapshot %}
