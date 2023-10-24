@@ -19,7 +19,7 @@ host_stg as (
         HOST_ID,
         HOST_NAME,
         to_date(HOST_SINCE, 'DD/MM/YYYY') as HOST_SINCE,
-        CASE WHEN HOST_IS_SUPERHOST = 't' THEN 1 ELSE 0 END as HOST_IS_SUPERHOST,
+        HOST_IS_SUPERHOST,
         inserted_datetime
     FROM source
 )

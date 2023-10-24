@@ -13,12 +13,7 @@ source  as (
 ),
 room_stg as (
     SELECT
-        LISTING_ID,
-        to_date(SCRAPED_DATE, 'YYYY-MM-DD') as SCRAPED_DATE,
         ROOM_TYPE,
-        ACCOMMODATES,
-        CASE WHEN HAS_AVAILABILITY = 't' THEN 1 ELSE 0 END as HAS_AVAILABILITY,
-        AVAILABILITY_30,
         inserted_datetime
     FROM source
 )

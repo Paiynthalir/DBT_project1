@@ -10,7 +10,7 @@
     }}
 
 select 
-listing_id, SCRAPED_DATE, ROOM_TYPE, ACCOMMODATES, HAS_AVAILABILITY, AVAILABILITY_30, inserted_datetime  
+ROOM_TYPE, inserted_datetime  
 from {{ source('raw', 'listings') }}
 
 {% endsnapshot %}
