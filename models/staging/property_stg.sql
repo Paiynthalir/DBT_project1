@@ -17,7 +17,6 @@ property_stg as (
         to_date(SCRAPED_DATE, 'YYYY-MM-DD') as SCRAPED_DATE,
         upper(LISTING_NEIGHBOURHOOD) as LISTING_NEIGHBOURHOOD,
         PROPERTY_TYPE,
-        PRICE,
         inserted_datetime 
     FROM source
 )

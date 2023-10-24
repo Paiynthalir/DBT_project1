@@ -10,7 +10,7 @@
     }}
 
 select 
-listing_id, SCRAPED_DATE, LISTING_NEIGHBOURHOOD, PROPERTY_TYPE, PRICE, inserted_datetime  
+listing_id, SCRAPED_DATE, LISTING_NEIGHBOURHOOD, PROPERTY_TYPE, inserted_datetime  
 from {{ source('raw', 'listings') }}
 
 {% endsnapshot %}
