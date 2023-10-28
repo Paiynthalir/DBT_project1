@@ -14,7 +14,7 @@ source  as (
 
 lga_stg as (
     select
-        LGA_CODE as LGACode,
+        LGA_CODE,
         upper(LGA_NAME) as LGA_Name
     from source
 )

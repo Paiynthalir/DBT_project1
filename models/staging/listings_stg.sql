@@ -1,8 +1,6 @@
 {{
         config(
-          strategy='timestamp',
           unique_key='listing_id',
-          updated_at='inserted_datetime'
         )
 }}
 
@@ -18,7 +16,7 @@ listings_stg as (
     SELECT
         LISTING_ID,
         SCRAPE_ID,
-        to_date(SCRAPED_DATE, 'YYYY-MM-DD') as SCRAPED_DATE,
+        to_date(SCRAPED_DATE, 'DD/MM/YYYY') as SCRAPED_DATE,
         HOST_ID,
         ACCOMMODATES,
         PRICE,
