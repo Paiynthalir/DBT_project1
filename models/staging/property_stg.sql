@@ -17,8 +17,8 @@ property_stg as (
             WHEN POSITION('/' IN SCRAPED_DATE) > 0 THEN to_date(SCRAPED_DATE, 'DD/MM/YYYY')
             ELSE NULL 
         END AS SCRAPED_DATE,
-        LISTING_NEIGHBOURHOOD,
-        PROPERTY_TYPE,
+        CASE WHEN LISTING_NEIGHBOURHOOD = 'NaN' THEN 'UNKNOWN' ELSE upper(LISTING_NEIGHBOURHOOD) END as  LISTING_NEIGHBOURHOOD,
+        CASE WHEN PROPERTY_TYPE = 'NaN' THEN 'UNKNOWN' ELSE upper(PROPERTY_TYPE) END as  PROPERTY_TYPE,
         inserted_datetime,
       CASE
             WHEN POSITION('-' IN dbt_updated_at) > 0 THEN to_date(dbt_updated_at, 'YYYY-MM-DD')
@@ -45,8 +45,8 @@ unknown as (
     select 
         0 as LISTING_ID,
         '1900-01-01'::date as SCRAPED_DATE,
-        'unknown' as LISTING_NEIGHBOURHOOD,
-        'unknown' as PROPERTY_TYPE,
+        'UNKNOWN' as LISTING_NEIGHBOURHOOD,
+        'UNKNOWN' as PROPERTY_TYPE,
         '1900-01-01'::timestamp as inserted_datetime,
         '1900-01-01'::date as dbt_updated_at,
         '1900-01-01'::date as dbt_valid_from,

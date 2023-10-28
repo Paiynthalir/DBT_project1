@@ -18,7 +18,7 @@ host_stg as (
             ELSE NULL 
         END AS SCRAPED_DATE,
         HOST_ID,
-        HOST_NAME,
+        CASE WHEN HOST_NAME = 'NaN' THEN 'UNKNOWN' ELSE upper(HOST_NAME) END as HOST_NAME,
         CASE
             WHEN POSITION('-' IN HOST_SINCE) > 0 THEN to_date(HOST_SINCE, 'YYYY-MM-DD')
             WHEN POSITION('/' IN HOST_SINCE) > 0 THEN to_date(HOST_SINCE, 'DD/MM/YYYY')
@@ -52,9 +52,9 @@ unknown as (
     select 
         '1900-01-01'::date as SCRAPED_DATE,
         0 as HOST_ID,
-        'unknown' as HOST_NAME,
+        'UNKNOWN' as HOST_NAME,
         '1900-01-01'::date as HOST_SINCE,
-        'unknown' as HOST_NEIGHBOURHOOD,
+        'UNKNOWN' as HOST_NEIGHBOURHOOD,
         'f'::boolean as HOST_IS_SUPERHOST,
         '1900-01-01'::timestamp as inserted_datetime,
         '1900-01-01'::date as dbt_updated_at,

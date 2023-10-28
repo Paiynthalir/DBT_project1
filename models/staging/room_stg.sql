@@ -44,7 +44,7 @@ unknown as (
     select 
         0 as LISTING_ID,
         '1900-01-01'::date as SCRAPED_DATE,
-        'unknown' as ROOM_TYPE,
+        'UNKNOWN' as ROOM_TYPE,
         '1900-01-01'::timestamp as inserted_datetime,
         '1900-01-01'::date as dbt_updated_at,
         '1900-01-01'::date  as dbt_valid_from,

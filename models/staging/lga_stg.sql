@@ -15,9 +15,18 @@ source  as (
 lga_stg as (
     select
         LGA_CODE,
-        upper(LGA_NAME) as LGA_Name
+        CASE WHEN LGA_NAME = 'NaN' THEN 'unknown' ELSE upper(LGA_NAME) END as LGA_Name
     from source
-)
-
+),
+cleaned as (
 select * from lga_stg
 WHERE lga_stg.LGA_CODE IS NOT NULL-- Filter out rows with missing LGA_CODE
+),
+unknown as (
+    select 
+        0 as LGA_CODE,
+        'UNKNOWN' as LGA_NAME
+)
+select * from unknown
+union all 
+select * from cleaned
