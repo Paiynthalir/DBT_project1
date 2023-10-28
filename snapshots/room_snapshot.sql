@@ -4,7 +4,7 @@
         config(
           target_schema='raw',
           strategy='timestamp',
-          unique_key='listing_id',
+          unique_key = 'room_type',
           updated_at='inserted_datetime'
         )
     }}

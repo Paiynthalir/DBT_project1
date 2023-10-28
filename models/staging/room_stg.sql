@@ -13,6 +13,7 @@ source  as (
 ),
 room_stg as (
     SELECT
+        listing_id,
         ROOM_TYPE,
         inserted_datetime
     FROM source
