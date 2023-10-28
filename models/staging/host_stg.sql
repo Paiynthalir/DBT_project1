@@ -25,7 +25,7 @@ host_stg as (
             ELSE NULL 
         END AS HOST_SINCE,
         CASE WHEN HOST_NEIGHBOURHOOD = 'NaN' THEN 'UNKNOWN' ELSE upper(HOST_NEIGHBOURHOOD) END as HOST_NEIGHBOURHOOD,
-        CASE WHEN HOST_IS_SUPERHOST = 'NaN' THEN 'f' ELSE HOST_IS_SUPERHOST END as HOST_IS_SUPERHOST,
+        CASE WHEN HOST_IS_SUPERHOST = 'NaN' THEN 'f' ELSE HOST_IS_SUPERHOST::boolean END as HOST_IS_SUPERHOST,
         inserted_datetime,
         CASE
             WHEN POSITION('-' IN dbt_updated_at) > 0 THEN to_date(dbt_updated_at, 'YYYY-MM-DD')
@@ -55,7 +55,7 @@ unknown as (
         'unknown' as HOST_NAME,
         '1900-01-01'::date as HOST_SINCE,
         'unknown' as HOST_NEIGHBOURHOOD,
-        'unknown' as HOST_IS_SUPERHOST,
+        'f'::boolean as HOST_IS_SUPERHOST,
         '1900-01-01'::timestamp as inserted_datetime,
         '1900-01-01'::date as dbt_updated_at,
         '1900-01-01'::date as dbt_valid_from,

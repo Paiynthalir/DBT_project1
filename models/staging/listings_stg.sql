@@ -16,11 +16,15 @@ listings_stg as (
     SELECT
         LISTING_ID,
         SCRAPE_ID,
-        to_date(SCRAPED_DATE, 'DD/MM/YYYY') as SCRAPED_DATE,
+                CASE
+            WHEN POSITION('-' IN SCRAPED_DATE) > 0 THEN to_date(SCRAPED_DATE, 'YYYY-MM-DD')
+            WHEN POSITION('/' IN SCRAPED_DATE) > 0 THEN to_date(SCRAPED_DATE, 'DD/MM/YYYY')
+            ELSE NULL 
+        END AS SCRAPED_DATE,
         HOST_ID,
         ACCOMMODATES,
         PRICE,
-        HAS_AVAILABILITY,
+        HAS_AVAILABILITY::boolean as HAS_AVAILABILITY,
         AVAILABILITY_30,
         NUMBER_OF_REVIEWS,
         -- Replace missing values in each column with 0 if they are 'NaN'
@@ -35,4 +39,4 @@ listings_stg as (
 )
 
 select * from listings_stg
-Where LISTING_ID IS NOT NULL and SCRAPE_ID IS NOT NULL and SCRAPED_DATE IS NOT NULL and HOST_ID IS NOT NULL
+Where LISTING_ID IS NOT NULL 
