@@ -20,3 +20,4 @@ lga_stg as (
 )
 
 select * from lga_stg
+WHERE lga_stg.LGA_CODE IS NOT NULL-- Filter out rows with missing LGA_CODE

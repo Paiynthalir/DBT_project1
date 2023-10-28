@@ -18,5 +18,7 @@ combined as (
     LEFT JOIN lgacode
     ON source.LGA_CODE_2016 = lgacode.LGA_CODE_SOURCE
 )
+
 select combined.* -- Exclude the columns used in the join
 from combined
+WHERE combined.LGA_CODE IS NOT NULL -- Filter out rows with missing LGA_CODE

@@ -13,10 +13,12 @@ source  as (
 ),
 room_stg as (
     SELECT
-        listing_id,
+        LISTING_ID,
+        to_date(SCRAPED_DATE, 'YYYY-MM-DD') as SCRAPED_DATE,
         ROOM_TYPE,
         inserted_datetime
     FROM source
 )
 
 select * from room_stg
+Where room_type is not NULL

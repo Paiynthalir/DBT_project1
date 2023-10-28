@@ -21,6 +21,7 @@ suburb_stg as (
 )
 
 select * from suburb_stg
+where LGA_NAME is not NULL
 
 
 

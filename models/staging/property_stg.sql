@@ -15,10 +15,11 @@ property_stg as (
     SELECT
         LISTING_ID,
         to_date(SCRAPED_DATE, 'YYYY-MM-DD') as SCRAPED_DATE,
-        upper(LISTING_NEIGHBOURHOOD) as LISTING_NEIGHBOURHOOD,
+        CASE WHEN LISTING_NEIGHBOURHOOD = 'NaN' THEN 'UNKNOWN' ELSE upper(LISTING_NEIGHBOURHOOD) END as LISTING_NEIGHBOURHOOD,
         PROPERTY_TYPE,
         inserted_datetime 
     FROM source
 )
 
 select * from property_stg
+Where PROPERTY_TYPE is not NULL

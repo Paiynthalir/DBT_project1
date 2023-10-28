@@ -5,12 +5,12 @@
           target_schema='raw',
           strategy='timestamp',
           unique_key = 'room_type',
-          updated_at='inserted_datetime'
+          updated_at='SCRAPED_DATE'
         )
     }}
 
 select 
-ROOM_TYPE, inserted_datetime  
+listing_id,ROOM_TYPE, SCRAPED_DATE, inserted_datetime  
 from {{ source('raw', 'listings') }}
 
 {% endsnapshot %}
