@@ -1,6 +1,6 @@
 {{
         config(
-          unique_key='listing_id',
+          unique_key='combined_key',
         )
 }}
 
@@ -16,12 +16,12 @@ listings_stg as (
     SELECT
         LISTING_ID,
         SCRAPE_ID,
-            CASE
+        CASE
             WHEN POSITION('-' IN SCRAPED_DATE) > 0 THEN to_date(SCRAPED_DATE, 'YYYY-MM-DD')
             WHEN POSITION('/' IN SCRAPED_DATE) > 0 THEN to_date(SCRAPED_DATE, 'DD/MM/YYYY')
             WHEN POSITION('/' IN SCRAPED_DATE) > 0 THEN to_date(SCRAPED_DATE, 'YYYY/MM/DD')
             WHEN POSITION('-' IN SCRAPED_DATE) > 0 THEN to_date(SCRAPED_DATE, 'DD-MM-YYYY')
-            ELSE '1900-01-01'::date 
+        ELSE '1900-01-01'::date  
         END AS SCRAPED_DATE,
         CASE WHEN PROPERTY_TYPE = 'NaN' THEN 'UNKNOWN' ELSE upper(PROPERTY_TYPE) END as  PROPERTY_TYPE,
         CASE WHEN ROOM_TYPE = 'NaN' THEN 'UNKNOWN' ELSE upper(ROOM_TYPE) END as ROOM_TYPE,
@@ -40,6 +40,30 @@ listings_stg as (
         CASE WHEN REVIEW_SCORES_VALUE = 'NaN' THEN 0 ELSE CAST(REVIEW_SCORES_VALUE AS NUMERIC) END AS REVIEW_SCORES_VALUE,
         inserted_datetime
     FROM source
+),
+combined as (
+    SELECT
+        LISTING_ID,
+        CONCAT(LISTING_ID,'_',CAST(HOST_ID AS VARCHAR), '_', CAST(SCRAPED_DATE AS VARCHAR)) AS combined_key,
+        SCRAPE_ID,
+        SCRAPED_DATE,
+        PROPERTY_TYPE,
+        ROOM_TYPE,
+        LISTING_NEIGHBOURHOOD,
+        HOST_ID,
+        ACCOMMODATES,
+        PRICE,
+        HAS_AVAILABILITY,
+        AVAILABILITY_30,
+        NUMBER_OF_REVIEWS,
+        REVIEW_SCORES_RATING,
+        REVIEW_SCORES_ACCURACY,
+        REVIEW_SCORES_CLEANLINESS,
+        REVIEW_SCORES_CHECKIN,
+        REVIEW_SCORES_COMMUNICATION,
+        REVIEW_SCORES_VALUE,
+        inserted_datetime
+    FROM listings_stg
 )
 
-select * from listings_stg
+select * from combined

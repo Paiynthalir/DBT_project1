@@ -1,6 +1,6 @@
 {{
     config(
-        unique_key='listing_id'
+        unique_key='combined_key'
     )
 }}
 
@@ -11,7 +11,8 @@ source as (
 
 check_dimensions as
 (select
-	LISTING_ID,
+	combined_key,
+    LISTING_ID,
     SCRAPED_DATE,
     case when HOST_ID in (select distinct HOST_ID from {{ ref('host_stg') }}) then HOST_ID else 0 end as HOST_ID,
     LISTING_NEIGHBOURHOOD,
@@ -35,7 +36,8 @@ select
 ),
 addhost_details as(
 select
-	a.LISTING_ID,
+	a.combined_key,
+    a.LISTING_ID,
     a.SCRAPED_DATE,
     a.LISTING_NEIGHBOURHOOD,
     b.LGA_CODE as LISTING_NEIGHBOURHOOD_LGA_CODE,
@@ -54,12 +56,13 @@ select
     a.REVIEW_SCORES_RATING,
     a.inserted_datetime
 from check_dimensions a
-left join {{ ref('host_stg') }} c on a.HOST_ID = c.HOST_ID and a.SCRAPED_DATE = c.SCRAPED_DATE and a.SCRAPED_DATE::date >= c.dbt_valid_from and (a.SCRAPED_DATE::date < c.dbt_valid_to or c.dbt_valid_from is null)
+left join {{ ref('host_stg') }} c on a.combined_key = c.combined_key and a.SCRAPED_DATE::date >= c.dbt_valid_from and a.SCRAPED_DATE::date < coalesce(c.dbt_valid_to, '9999-12-31'::timestamp)
 left join {{ ref('lga_stg') }} b  on a.LISTING_NEIGHBOURHOOD = b.LGA_NAME
 )
 
 select
-	a.LISTING_ID,
+	a.combined_key,
+    a.LISTING_ID,
     a.SCRAPED_DATE,
     a.LISTING_NEIGHBOURHOOD,
     a.LISTING_NEIGHBOURHOOD_LGA_CODE,
