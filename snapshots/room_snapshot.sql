@@ -9,8 +9,8 @@
         )
     }}
 
-select 
-listing_id,ROOM_TYPE, SCRAPED_DATE, inserted_datetime  
+select distinct
+ROOM_TYPE, SCRAPED_DATE 
 from {{ source('raw', 'listings') }}
 
 {% endsnapshot %}

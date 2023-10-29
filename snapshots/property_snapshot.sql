@@ -9,8 +9,8 @@
         )
     }}
 
-select 
-listing_id, SCRAPED_DATE, LISTING_NEIGHBOURHOOD, PROPERTY_TYPE, inserted_datetime
+select distinct
+SCRAPED_DATE, PROPERTY_TYPE
 from {{ source('raw', 'listings') }}
 
 {% endsnapshot %}

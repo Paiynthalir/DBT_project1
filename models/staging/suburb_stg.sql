@@ -1,6 +1,6 @@
 {{
     config(
-        unique_key='LGA_NAME_SUBURB_NAME'
+        unique_key='SUBURB_NAME'
     )
 }}
 
@@ -14,9 +14,8 @@ source  as (
 
 suburb_stg as (
     select
-        upper(LGA_NAME) || '_' || SUBURB_NAME as LGA_NAME_SUBURB_NAME,
         upper(LGA_NAME) as lga_name,
-        SUBURB_NAME
+        upper(SUBURB_NAME) as SUBURB_NAME
     from source
 ),
 cleaned as (
@@ -25,7 +24,6 @@ where LGA_NAME is not NULL
 ),
 unknown as (
     select 
-        'UNKNOWN_UNKNOWN' as LGA_NAME_SUBURB_NAME,
         'UNKNOWN' as LGA_NAME,
         'UNKNOWN' as SUBURB_NAME
 )

@@ -9,8 +9,8 @@
         )
     }}
 
-select 
-SCRAPED_DATE, HOST_ID,HOST_NAME,HOST_SINCE,HOST_IS_SUPERHOST,HOST_NEIGHBOURHOOD, inserted_datetime
+select DISTINCT
+SCRAPED_DATE, HOST_ID,HOST_NAME,HOST_SINCE,HOST_IS_SUPERHOST,HOST_NEIGHBOURHOOD
 from {{ source('raw', 'listings') }}
 
 {% endsnapshot %}
