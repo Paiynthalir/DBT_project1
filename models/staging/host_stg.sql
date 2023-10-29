@@ -19,6 +19,7 @@ host_stg as (
             WHEN POSITION('-' IN SCRAPED_DATE) > 0 THEN to_date(SCRAPED_DATE, 'DD-MM-YYYY')
             ELSE NULL 
         END AS SCRAPED_DATE,
+        inserted_datetime,
         HOST_ID,
         CASE WHEN HOST_NAME = 'NaN' THEN 'UNKNOWN' ELSE upper(HOST_NAME) END as HOST_NAME,
         CASE
@@ -52,24 +53,8 @@ host_stg as (
             ELSE NULL 
         END AS dbt_valid_to
     FROM source
-),
-cleaned as (
+)
     select * from host_stg 
     WHERE host_stg.HOST_ID IS NOT NULL-- Filter out rows with missing LGA_CODE
-),
-unknown as (
-    select 
-        '1900-01-01'::date as SCRAPED_DATE,
-        0 as HOST_ID,
-        'UNKNOWN' as HOST_NAME,
-        '1900-01-01'::date as HOST_SINCE,
-        'UNKNOWN' as HOST_NEIGHBOURHOOD,
-        'f'::boolean as HOST_IS_SUPERHOST,
-        '1900-01-01'::date as dbt_updated_at,
-        '1900-01-01'::date as dbt_valid_from,
-        null::date as dbt_valid_to
-)
-select * from unknown
-union all 
-select * from cleaned
+
 
