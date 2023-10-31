@@ -4,6 +4,13 @@
     )
 }}
 
+-- Per “host_neighbourhood_lga” which is “host_neighbourhood” transformed to an LGA (e.g host_neighbourhood = 'Bondi' then you need to create host_neighbourhood_lga = 'Waverley')  and “month/year”:
+-- Number of distinct host
+-- Estimated Revenue
+-- Estimated Revenue per host (distinct)
+
+-- The view needs to be ordered by “host_neighbourhood_lga” and “month/year”
+
 
 -- dm-host-neighbourhood
 SELECT

@@ -15,7 +15,7 @@ source  as (
 lga_stg as (
     select
         LGA_CODE,
-        CASE WHEN LGA_NAME = 'NaN' THEN 'UNKNOWN' ELSE upper(LGA_NAME) END as LGA_Name
+        CASE WHEN LGA_NAME = 'NaN' THEN 'UNKNOWN' ELSE upper(LGA_NAME) END as LGA_Name -- replacing missing values
     from source
 ),
 cleaned as (

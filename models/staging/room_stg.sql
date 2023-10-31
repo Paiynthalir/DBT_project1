@@ -13,7 +13,7 @@ room_stg as (
     SELECT
         SCRAPED_DATE,
         inserted_datetime,
-        CASE WHEN ROOM_TYPE = 'NaN' THEN 'UNKNOWN' ELSE upper(ROOM_TYPE) END as ROOM_TYPE,
+        CASE WHEN ROOM_TYPE = 'NaN' THEN 'UNKNOWN' ELSE upper(ROOM_TYPE) END as ROOM_TYPE, -- replacing missing values
         dbt_updated_at,
         dbt_valid_from,
         dbt_valid_to

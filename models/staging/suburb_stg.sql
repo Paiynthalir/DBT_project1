@@ -14,6 +14,7 @@ source  as (
 
 suburb_stg as (
     select
+    -- changing values to upper case to reduce issue during joins in the future queries. 
         upper(LGA_NAME) as lga_name,
         upper(SUBURB_NAME) as SUBURB_NAME
     from source

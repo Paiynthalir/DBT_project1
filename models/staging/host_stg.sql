@@ -16,10 +16,10 @@ host_stg as (
         SCRAPED_DATE,
         inserted_datetime,
         HOST_ID,
-        CASE WHEN HOST_NAME = 'NaN' THEN 'UNKNOWN' ELSE upper(HOST_NAME) END as HOST_NAME,
+        CASE WHEN HOST_NAME = 'NaN' THEN 'UNKNOWN' ELSE upper(HOST_NAME) END as HOST_NAME, -- replacing missing values
         HOST_SINCE,
-        CASE WHEN HOST_NEIGHBOURHOOD = 'NaN' THEN 'UNKNOWN' ELSE upper(HOST_NEIGHBOURHOOD) END as HOST_NEIGHBOURHOOD,
-        CASE WHEN HOST_IS_SUPERHOST = 'NaN' THEN 'f' ELSE HOST_IS_SUPERHOST::boolean END as HOST_IS_SUPERHOST,
+        CASE WHEN HOST_NEIGHBOURHOOD = 'NaN' THEN 'UNKNOWN' ELSE upper(HOST_NEIGHBOURHOOD) END as HOST_NEIGHBOURHOOD, -- replacing missing values
+        CASE WHEN HOST_IS_SUPERHOST = 'NaN' THEN 'f' ELSE HOST_IS_SUPERHOST::boolean END as HOST_IS_SUPERHOST, -- replacing missing values
         dbt_updated_at,
         dbt_valid_from,
         dbt_valid_to

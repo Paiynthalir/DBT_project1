@@ -8,6 +8,7 @@ with
 source as (
     select * from "postgres"."raw"."censusgtwo"
 ),
+-- Removing "LGA_" from the LGA code values
 lgacode as (
     select LGA_CODE_2016 as LGA_CODE_SOURCE, CAST(SUBSTRING(LGA_CODE_2016 FROM 4) AS NUMERIC) AS LGA_CODE
     from source

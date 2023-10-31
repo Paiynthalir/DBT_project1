@@ -5,6 +5,19 @@
     )
 }}
 
+-- Per “listing_neighbourhood” and “month/year”:
+-- Active listings rate
+-- Minimum, maximum, median and average price for active listings
+-- Number of distinct hosts
+-- Superhost rate 
+-- Average of review_scores_rating for active listings
+-- Percentage change for active listings
+-- Percentage change for inactive listings
+-- Total Number of stays
+-- Average Estimated revenue per active listings
+
+-- The view needs to be ordered by “listing_neighbourhood” and “month/year”
+
 -- dm_listing_neighbourhood
 with monthly_perneighbourhood as (
 SELECT

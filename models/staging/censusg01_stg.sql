@@ -8,6 +8,7 @@ with
 source as (
     select * from "postgres"."raw"."censusgone"
 ),
+-- Removing "LGA_" from the LGA code values
 lgacode as (
     select LGA_CODE_2016 as LGA_CODE_SOURCE, CAST(SUBSTRING(LGA_CODE_2016 FROM 4) AS NUMERIC) AS LGA_CODE
     from source
@@ -141,7 +142,7 @@ select * from cleaned
 union all
 select * from unknown
 )
-
+-- renaming the columns for better readability
 select 
 LGA_CODE,
 Tot_P_M as male_pop,

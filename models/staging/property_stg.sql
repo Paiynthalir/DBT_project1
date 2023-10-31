@@ -13,7 +13,7 @@ property_stg as (
     SELECT
         SCRAPED_DATE,
         inserted_datetime,
-        CASE WHEN PROPERTY_TYPE = 'NaN' THEN 'UNKNOWN' ELSE upper(PROPERTY_TYPE) END as  PROPERTY_TYPE,
+        CASE WHEN PROPERTY_TYPE = 'NaN' THEN 'UNKNOWN' ELSE upper(PROPERTY_TYPE) END as  PROPERTY_TYPE, -- replacing missing values
         dbt_updated_at,
         dbt_valid_from,
         dbt_valid_to

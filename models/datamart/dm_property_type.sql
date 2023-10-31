@@ -4,6 +4,19 @@
         unique_key=['property_type', 'room_type','accommodates', 'year_month']
     )
 }}
+-- Per “property_type”, “room_type” ,“accommodates” and “month/year”:
+-- Active listings rate
+-- Minimum, maximum, median and average price for active listings
+-- Number of distinct hosts
+-- Superhost rate 
+-- Average of review_scores_rating for active listings
+-- Percentage change for active listings
+-- Percentage change for inactive listings
+-- Total Number of stays
+-- Average Estimated revenue per active listings
+
+-- The view needs to be ordered by “property_type”, “room_type” ,“accommodates” and “month/year”
+
 
 -- dm_property_type
 with property_stat as (
