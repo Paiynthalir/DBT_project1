@@ -9,7 +9,7 @@
         )
     }}
 
-select 
+select distinct
     ROOM_TYPE, 
     CASE
       WHEN POSITION('-' IN SCRAPED_DATE) > 0 THEN to_date(SCRAPED_DATE, 'YYYY-MM-DD')
