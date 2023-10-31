@@ -11,7 +11,7 @@ SELECT
   CONCAT(EXTRACT(YEAR FROM scraped_date), '-', LPAD(EXTRACT(MONTH FROM scraped_date)::TEXT, 2, '0')) AS year_month,
   -- Calculating no of distinct hosts
   COUNT(DISTINCT host_id) AS distinct_hosts,
-  -- Estimated revenue calculations - Estimated revenue per host= Total Estimated revenue per active listings/ total distinct hosts
+  -- Estimated revenue calculations 
   SUM(CASE WHEN has_availability = 't' THEN (30 - availability_30) * price ELSE 0 END) AS estimated_revenue,
   -- Estimated revenue calculations - Estimated revenue per host= Total Estimated revenue per active listings/ total distinct hosts
   round((sum((30 - availability_30)*price)/(count(distinct host_id)))::numeric,2) as estimated_revenue_host
