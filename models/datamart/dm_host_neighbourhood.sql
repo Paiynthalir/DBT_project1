@@ -10,7 +10,7 @@
 -- Estimated Revenue per host (distinct)
 
 -- The view needs to be ordered by “host_neighbourhood_lga” and “month/year”
-
+  
 
 -- dm-host-neighbourhood
 SELECT
